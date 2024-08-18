@@ -23,6 +23,22 @@ class LibroController {
     ]);
     res.json({ "Registros eliminados": result.affectedRows });
   }
+
+  async update(req, res) {
+    const libro = req.body;
+    const [result] = await pool.query(
+      `UPDATE Libros SET nombre =(?), autor =(?), categoria =(?), fecha =(?), isbn =(?) WHERE id =(?)`,
+      [
+        libro.nombre,
+        libro.autor,
+        libro.categoria,
+        libro.fecha,
+        libro.isbn,
+        libro.id,
+      ]
+    );
+    res.json({ "Registros actualizados": result.changedRows });
+  }
 }
 
 export const libro = new LibroController();
