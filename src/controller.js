@@ -15,6 +15,14 @@ class LibroController {
 
     res.json({ "Id insertado": result.insertId });
   }
+
+  async delete(req, res) {
+    const libro = req.body;
+    const [result] = await pool.query(`DELETE FROM Libros WHERE id=(?)`, [
+      libro.id,
+    ]);
+    res.json({ "Registros eliminados": result.affectedRows });
+  }
 }
 
 export const libro = new LibroController();
